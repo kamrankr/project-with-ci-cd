@@ -1,0 +1,8 @@
+version: '3.3'
+
+services:
+  php:
+    image: php:7.4-fpm
+    build: ./docker/php/
+    volumes:
+      - ./trip-sorter:/var/www/html
