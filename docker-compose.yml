@@ -6,3 +6,11 @@ services:
     build: ./docker/php/
     volumes:
       - ./trip-sorter:/var/www/html
+
+  nginx:
+    image: nginx:1.17
+    build: ./docker/nginx/
+    volumes:
+      - ./trip-sorter:/var/www/html
+    links: 
+    - php:php-fpm-server

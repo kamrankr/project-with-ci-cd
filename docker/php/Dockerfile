@@ -11,9 +11,5 @@ RUN wget -O phpunit https://phar.phpunit.de/phpunit-9.phar \
 && chmod +x phpunit \
 && mv phpunit /usr/local/bin/phpunit
 
-COPY ./entrypoint.sh /entrypoint.sh
-
-## Will be Runing php built in server on 8000
-EXPOSE 8000
-
-ENTRYPOINT ["/./entrypoint.sh"]
+#COPY ./entrypoint.sh /entrypoint.sh
+#ENTRYPOINT ["/./entrypoint.sh"]
