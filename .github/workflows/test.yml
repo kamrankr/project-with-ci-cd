@@ -1,0 +1,15 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: check docker 
+      run:  docker ps
+    - name: Check Docker composer
+      run:  docker-compose ps
