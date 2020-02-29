@@ -10,6 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: check docker 
-      run:  docker ps
+      run:
+       ls -la  
+       ./jenkins/build-step.sh
+       docker ps
     - name: Check Docker composer
       run:  docker-compose ps
