@@ -1,9 +1,28 @@
-name: Run Tests
+name: Pull Request
 on: [pull_request]
 jobs:
-  build:
+  
+  run-tests:
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run build
-        run: ./scripts/run-tests.sh
+        run:
+          ./scripts/run-tests.sh
+      
+  build-and-push-images:
+    name: Build and push images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and push images to docker
+        run: |
+         export TAG=pr-${{ github.event.number }}
+         make build-all-images
+         make push-all-images
