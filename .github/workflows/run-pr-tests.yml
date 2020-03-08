@@ -1,17 +1,21 @@
 name: Pull Request
-on: [pull_request]
+on: 
+  pull_request:
+    types: ["opened", "labeled", "synchronize"]
 jobs:
   
   run-tests:
+    if: github.event.action == 'opened' || github.event.action == 'synchronize' || (github.event.action == 'labeled' && github.event.label.name == 'retest')
     name: Run Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run build
-        run:
+        run: |
           ./scripts/run-tests.sh
       
   build-and-push-images:
+    if: github.event.action == 'opened' || github.event.action == 'synchronize' || (github.event.action == 'labeled' && github.event.label.name == 'rebuild images')
     name: Build and push images
     runs-on: ubuntu-latest
     steps:
